@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工作日计算</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/moment.js/2.17.0/moment.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">工作日计算</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>开始时间</label>
+                        <input class="form-control" id="timeFrom">
+                    </div>
+                    <div class="col-md-4">
+                        <label>结束时间</label>
+                        <input class="form-control" id="timeEnd">
+                    </div>
+                    <div class="col-md-4">
+                        <label>工作日</label>
+                        <input class="form-control" id="workDay">
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" id="msg"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#timeFrom').datetimepicker({
+        defaultDate: moment(),
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        },
+        format: 'YYYY-MM-DD'
+    });
+    $('#timeEnd').datetimepicker({
+        useCurrent: false, //Important! See issue #1075,
+        defaultDate: moment().add(30, 'day').format('YYYY-MM-DD'),
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        },
+        format: 'YYYY-MM-DD'
+    });
+    $("#timeFrom").on("dp.change", function (e) {
+        $('#timeEnd').data("DateTimePicker").minDate(e.date);
+    });
+    $("#timeEnd").on("dp.change", function (e) {
+        $('#timeFrom').data("DateTimePicker").maxDate(e.date);
+    });
+
+    var holiday = ["2016-12-01","2016-12-02"];
+    var workDayOff = ["2016-12-10","2016-12-11"];
+
+    $("#timeFrom").blur(function(){
+        var beginDate = moment($("#timeFrom").val()).unix();
+        var endDate = moment($("#timeEnd").val()).unix();
+        workDay(beginDate,endDate)
+    });
+    $("#timeEnd").blur(function(){
+        var beginDate = moment($("#timeFrom").val()).unix();
+        var endDate = moment($("#timeEnd").val()).unix();
+        workDay(beginDate,endDate)
+    });
+
+    workDay(moment($("#timeFrom").val()).unix(),moment($("#timeEnd").val()).unix());
+
+    function workDay(beginDate,endDate){
+        var oneDay = 60 * 60 * 24;
+        //自然日
+        var natureDay = (endDate - beginDate) / oneDay + 1;
+        //余数
+        var remainder = natureDay % 7;
+        //一共有几周
+        var weekNum = Math.floor(natureDay / 7);
+        //周六周日有几天
+        var weekendDay = 2 * weekNum;
+        //开始日期当天星期几
+        var nextDay = new Date(beginDate*1000).getDay();
+
+        for (var i = remainder; i >= 1; i--) {
+            if (i == remainder) {
+                nextDay = nextDay + 0;
+            } else if (i != remainder) {
+                nextDay = nextDay + 1;
+            }
+
+            if (nextDay == 7) {
+                nextDay = 0;
+            }
+
+            if(nextDay == 0 || nextDay == 6) {
+                weekendDay = weekendDay + 1;
+            }
+        }
+
+        $.each(holiday, function (i, itemHoliday) {
+            //如果假期在起始范围内，并且是在周一到周五的区间内，双休日的天数+1
+            if (moment(itemHoliday).unix() >= beginDate && moment(itemHoliday).unix() <= endDate && moment(itemHoliday).day() > 0 && moment(itemHoliday).day() < 6){
+                weekendDay += 1;
+            }
+        });
+
+        $.each(workDayOff, function (i, offitem) {
+            //如果调休日在时间段区间内，且为周末时间（周六或周日），周末天数值-1
+            if (moment(offitem).unix() >= beginDate && moment(offitem).unix() <= endDate && (moment(offitem).day() == 0 || moment(offitem).day() == 6))
+                weekendDay -= 1;
+        });
+
+        var workDay = natureDay - weekendDay;
+
+        $("#workDay").val(workDay);
+        $("#msg").html(natureDay + "个自然日，" + "有" + weekNum + "个星期，" + weekendDay + "个双休日，" + workDay + "工作日");
+    }
+</script>
+</body>
+</html>

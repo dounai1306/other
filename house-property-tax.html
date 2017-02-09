@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上海房产税计算器</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .calc {
+            margin: 0 auto;
+            width: 300px;
+        }
+
+        .calc input {
+            border: 1px solid rgba(0, 0, 0, .15);
+            padding: 10px;
+            outline: none;
+            height: 38px;
+            line-height: 38px;
+            border-radius: 3px;
+            box-sizing: border-box;
+            margin: 6px 0;
+            width: 100%;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .calc button {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8;
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            border: none;
+            padding: 10px 10px;
+            border-radius: 3px;
+            font-size: 15px;
+            margin: 6px 0 12px;
+        }
+
+        .calc .result {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid rgba(66, 139, 202, .3);
+            border-radius: 3px;
+            background: rgba(66, 139, 202, .1);
+            color: rgb(66, 139, 202);
+            font-weight: bold;
+            margin: 0
+        }
+
+        .header {
+            height: 50px;
+            background: rgba(66, 139, 202, .1);
+            border-bottom: 1px solid rgba(66, 139, 202, .3);
+            line-height: 50px;
+            font-size: 24px;
+            margin-bottom: 80px;
+            padding-left: 20px;
+            color: #0275d8;
+            font-family: "Microsoft Yahei";
+        }
+        .footer{
+            font-size: 12px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            line-height: 50px;
+            border-top: 1px solid #dbdbdb;
+            text-align: center;
+            color: #a9a9a9;
+        }
+    </style>
+</head>
+<body>
+<div class="header">上海房产税计算器</div>
+<div ng-app="myApp" ng-controller="myCtrl" class="calc">
+    <input type="number" ng-model="y" placeholder="购房年份"><br/>
+    <input type="number" ng-model="d" placeholder="产证月份"><br/>
+    <input type="number" ng-model="a" placeholder="面积"><br/>
+    <input type="number" ng-model="j" placeholder="总价万元（栗子：300）"><br/>
+    <button ng-click="doCalc()" class="btn btn-primary">开始计算</button>
+    </p>
+    <div class="result" ng-bind="result.toFixed(2)"></div>
+</div>
+<div class="footer">
+    初衷是为了自己方便查询使用，每年的基数不同，具体以官方为准https://www.shfft.com/housetax/houseCal
+</div>
+<script>
+    angular.module('myApp', [])
+            .controller('myCtrl', function ($scope) {
+                $scope.doCalc = function () {
+                    $scope.singlePrice = $scope.j * 10000 / $scope.a;
+                    if ($scope.y < new Date().getFullYear()) {
+                        calc(12)
+                    } else if ($scope.y == new Date().getFullYear()) {
+                        calc(12 - $scope.d + 1)
+                    } else {
+                        $scope.result = 0
+                    }
+                    function calc(x) {
+                        if ($scope.singlePrice > 32830) {
+                            $scope.result = ($scope.a * $scope.singlePrice * 0.7 * 0.006) / 12 * x;
+                        } else {
+                            $scope.result = ($scope.a * $scope.singlePrice * 0.7 * 0.004) / 12 * x;
+                        }
+                    }
+                }
+            });
+</script>
+</body>
+</html>

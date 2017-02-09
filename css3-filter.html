@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3 filter</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <style>
+        .container {
+            margin: 15px auto;
+        }
+
+        .clearfix:before, .clearfix:after {
+            display: table;
+            content: " ";
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+            margin-bottom: 20px;
+            width: 500px;
+        }
+
+        input {
+            width: 500px;
+            margin-top: 20px;
+        }
+
+        hr {
+            border: 0;
+            border-bottom: 1px solid #000;
+        }
+
+        div img {
+            width: 240px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        div img:last-child {
+            margin-right: 0;
+        }
+
+        p {
+            height: 20px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">blur(高斯模糊)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangeBlur">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="blur">
+                        </div>
+                        <input type="range" name="points" min="0" max="100" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">brightness(亮度)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangebrightness">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="brightness">
+                        </div>
+                        <input type="range" name="points" min="1" max="200" value="100"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">contrast(对比度)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangecontrast">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="contrast">
+                        </div>
+                        <input type="range" name="points" min="1" max="200" value="100"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">drop-shadow(阴影)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangedrop-shadow">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="drop-shadow">
+                        </div>
+                        h-shadow：<input type="range" name="points" min="-100" max="100" value="0" id="h-shadow"/>
+                        v-shadow：<input type="range" name="points" min="-100" max="100" value="0" id="v-shadow"/>
+                        blur：<input type="range" name="points" min="0" max="100" value="0" id="blur"/>
+                        <!--spread：<input type="range" name="points" min="0" max="-100" value="0" id="spread"/>-->
+                        color：<input id="color">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">grayscale(灰度)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangegrayscale">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="grayscale">
+                        </div>
+                        <input type="range" name="points" min="0" max="100" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">hue-rotate(色相旋转)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangehue-rotate">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="hue-rotate">
+                        </div>
+                        <input type="range" name="points" min="0" max="360" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">invert(反转)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangeinvert">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="invert">
+                        </div>
+                        <input type="range" name="points" min="0" max="100" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">opacity(透明)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangeopacity">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="opacity">
+                        </div>
+                        <input type="range" name="points" min="0" max="100" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">saturate(饱和度)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangesaturate">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="saturate">
+                        </div>
+                        <input type="range" name="points" min="0" max="400" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">sepia(复古?)</div>
+                <div class="panel-body">
+                    <div class="clearfix rangesepia">
+                        <div>
+                            <p></p>
+                            <img>
+                            <img class="sepia">
+                        </div>
+                        <input type="range" name="points" min="0" max="100" value="0"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("img").attr("src", "img/055950629.jpg");
+        $(".rangeBlur input").on("change", function () {
+            var filter = "blur(" + $(this).val() + "px)";
+            $(".rangeBlur p").html("-webkit-filter:" + filter);
+            $(".rangeBlur .blur").css("-webkit-filter", filter)
+        });
+
+        $(".rangebrightness input").on("change", function () {
+            var filter = "brightness(" + $(this).val() + "%)";
+            $(".rangebrightness p").html("-webkit-filter:" + filter);
+            $(".rangebrightness .brightness").css("-webkit-filter", filter)
+        });
+
+        $(".rangecontrast input").on("change", function () {
+            var filter = "contrast(" + $(this).val() + "%)";
+            $(".rangecontrast p").html("-webkit-filter:" + filter);
+            $(".rangecontrast .contrast").css("-webkit-filter", filter)
+        });
+
+        $(".rangegrayscale input").on("change", function () {
+            var filter = "grayscale(" + $(this).val() + "%)";
+            $(".rangegrayscale p").html("-webkit-filter:" + filter);
+            $(".rangegrayscale .grayscale").css("-webkit-filter", filter)
+        });
+
+        $(".rangeinvert input").on("change", function () {
+            var filter = "invert(" + $(this).val() + "%)";
+            $(".rangeinvert p").html("-webkit-filter:" + filter);
+            $(".rangeinvert .invert").css("-webkit-filter", filter)
+        });
+
+        $(".rangeopacity input").on("change", function () {
+            var filter = "opacity(" + $(this).val() + "%)";
+            $(".rangeopacity p").html("-webkit-filter:" + filter);
+            $(".rangeopacity .opacity").css("-webkit-filter", filter)
+        });
+
+        $(".rangesaturate input").on("change", function () {
+            var filter = "saturate(" + $(this).val() + "%)";
+            $(".rangesaturate p").html("-webkit-filter:" + filter);
+            $(".rangesaturate .saturate").css("-webkit-filter", filter)
+        });
+
+        $(".rangesepia input").on("change", function () {
+            var filter = "sepia(" + $(this).val() + "%)";
+            $(".rangesepia p").html("-webkit-filter:" + filter);
+            $(".rangesepia .sepia").css("-webkit-filter", filter)
+        });
+
+        $(".rangehue-rotate input").on("change", function () {
+            var filter = "hue-rotate(" + $(this).val() + "deg)";
+            $(".rangehue-rotate p").html("-webkit-filter:" + filter);
+            $(".rangehue-rotate .hue-rotate").css("-webkit-filter", filter)
+        });
+
+        $(".rangedrop-shadow input").on("change", function () {
+            var hshadow = $("#h-shadow").val() + "px ";
+            var vshadow = $("#v-shadow").val() + "px ";
+            var blur = $("#blur").val() + "px ";
+//        var spread = $("#spread").val() + "px ";
+            var color = $("#color").val();
+
+            var filter = "drop-shadow(" + hshadow + vshadow + blur + color + ")";
+            $(".rangedrop-shadow p").html("-webkit-filter:" + filter);
+            $(".rangedrop-shadow .drop-shadow").css("-webkit-filter", filter)
+        });
+
+    })
+</script>
+</body>
+</html>
