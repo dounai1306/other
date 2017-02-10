@@ -1,12 +1,12 @@
-# Ğ¡Àõ×Ó
-[ajaxÉÏ´«ÎÄ¼ş](https://dounai1306.github.io/other/ajax-upload-file.html)
+# å°æ —å­
+[ajax æ–‡ä»¶ä¸Šä¼ ](https://dounai1306.github.io/other/ajax-upload-file.html)
 
-[cssÂË¾µ](https://dounai1306.github.io/other/css3-filter.html)
+[css æ»¤é•œ](https://dounai1306.github.io/other/css3-filter.html)
 
-[¹¤×÷ÈÕ¼ÆËã](https://dounai1306.github.io/other/datetimepicker-workday.html)
+[å·¥ä½œæ—¥è®¡ç®—](https://dounai1306.github.io/other/datetimepicker-workday.html)
 
-[¶«·½ÔÆÊÓÉè¼Æ¸å](https://dounai1306.github.io/other/design-96877.html)
+[ä¸œæ–¹äº‘è§†è®¾è®¡ç¨¿](https://dounai1306.github.io/other/design-96877.html)
 
-[ÉÏº£·¿²úË°¼ÆËãÆ÷](https://dounai1306.github.io/other/house-property-tax.html)
+[ä¸Šæµ·æˆ¿äº§ç¨è®¡ç®—å™¨](https://dounai1306.github.io/other/house-property-tax.html)
 
 [tab](https://dounai1306.github.io/other/tab.html)
