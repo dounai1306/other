@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+        body{
+            background: #ebebeb;
+            color: #333;
+            font-family: "Microsoft Yahei";
+        }
+        .clearfix:before,.clearfix:after {
+            display: table;
+            content: " ";
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix{
+            *zoom: 1;
+        }
+
+        .tab{
+            width: 640px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 2px rgba(0,0,0,.1);
+            margin: 50px auto 0;
+        }
+        .tab-header{
+            width: 100%;
+        }
+        .tab-header ul{
+            width: 100%;
+        }
+        .tab-header ul, li {
+            list-style: none;
+            float: left;
+            line-height: 50px;
+            margin: 0;
+            padding: 0;
+
+        }
+        .tab-header li{
+            width: 25%;
+            text-align: center;
+            border-bottom: 1px solid #dbdbdb;
+            cursor: pointer;
+
+        }
+        .tab-header li.active{
+            color:#21a4f4;
+            border-bottom: 1px solid #21a4f4;
+        }
+        .tab-con > div{
+            display: none;
+            padding: 20px;
+            line-height: 2;
+        }
+        .tab-con > div:first-child{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tab">
+        <div class="tab-header clearfix">
+            <ul>
+                <li class="active">menu1</li>
+                <li>menu2</li>
+                <li>menu3</li>
+                <li>menu4</li>
+            </ul>
+        </div>
+        <div class="tab-con">
+            <div>
+                menu1 con
+                <div>test</div>
+            </div>
+            <div>menu2 con</div>
+            <div>menu3 con</div>
+            <div>menu4 con</div>
+        </div>
+    </div>
+
+
+
+<script>
+    $(".tab").on("click", '.tab-header ul li', function () {
+        $(this).siblings().removeClass("active");
+        $(this).addClass("active");
+        $(".tab").find(".tab-con div").hide();
+        $(".tab").find(".tab-con>div").eq($(this).index()).show();
+    });
+</script>
+</body>
+</html>
